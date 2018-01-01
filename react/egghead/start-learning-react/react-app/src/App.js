@@ -63,6 +63,7 @@ class App extends React.Component {
         <Widget update={this.update.bind(this)}/>
         <Widget update={this.update.bind(this)}/>
         <b>Bold</b>
+        <Button>React</Button>
       </div>
     )
   }
@@ -80,5 +81,8 @@ App.defaultProps = {
 
 const Widget = (props) => 
   <input type="text" onChange={props.update.bind(this)}/>
+
+const Button = (props) =>
+  <button>{props.children}</button>
 
 export default App
