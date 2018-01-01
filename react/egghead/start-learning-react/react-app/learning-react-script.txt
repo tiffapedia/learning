@@ -1,0 +1,7 @@
+# create react app called react-app
+create-react-app react-app
+
+# start app in browser at default localhost:3000
+cd react-app
+npm start
+
