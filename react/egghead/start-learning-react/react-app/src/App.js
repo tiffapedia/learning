@@ -52,7 +52,7 @@ class App extends React.Component {
     )
     */
 
-    // with widget
+    // with widget 
     // aka child component (widget) updates parent component (state)
     // multiple widget allows multiple updates to parent component
     return (
@@ -63,7 +63,7 @@ class App extends React.Component {
         <Widget update={this.update.bind(this)}/>
         <Widget update={this.update.bind(this)}/>
         <b>Bold</b>
-        <Button>React</Button>
+        <Button>I <Heart /> React</Button>
       </div>
     )
   }
@@ -84,5 +84,11 @@ const Widget = (props) =>
 
 const Button = (props) =>
   <button>{props.children}</button>
+
+class Heart extends React.Component {
+  render() {
+    return <span>&hearts;</span>
+  }
+}
 
 export default App
