@@ -11,13 +11,23 @@ class App extends React.Component {
     super();
     this.state = {
       txt: "this is the state txt",
-      cat: 0
+      cat: 0, 
+      currentEvent: "---",
+      a: '', 
+      b: '',
     }
+    // if used with currentEvent will update to the type of event
+    this.update = this.update.bind(this)
   }
   // update based on an event
   update(e) {
     // it will change state of txt but not state of cat
-    this.setState({txt: e.target.value})
+    this.setState({
+      txt: e.target.value,
+      currentEvent: e.type,
+      a: this.refs.a.value, // only change based on reference a
+      b: this.refs.b.value  // only change based on reference b
+    })
   }
   render(){
 
@@ -56,6 +66,9 @@ class App extends React.Component {
     // aka child component (widget) updates parent component (state)
     // multiple widget allows multiple updates to parent component
     return (
+
+      // onTouchStart, onTouchMove, onTouchEnd are for touch screen i.e. iPad
+
       // className is used for CSS
       <div className="application">
         <Title text="123456"/>
@@ -66,6 +79,24 @@ class App extends React.Component {
         <Widget update={this.update.bind(this)}/>
         <b>Bold</b>
         <Button>I <Heart /> React</Button>
+        <textarea
+          onKeyPress={this.update}
+          onCopy={this.update}
+          onCut={this.update}
+          onPaste={this.update}
+          onFocus={this.update}
+          onBlur={this.update}
+          onDoubleClick={this.update}
+          onTouchStart={this.update}
+          onTouchMove={this.update}
+          onTouchEnd={this.update}
+          cols="30"
+          rows="10"
+        />
+        <h1>{this.state.currentEvent}</h1>
+        <input ref="a" type="text" onChange={this.update.bind(this)} /> {this.state.a}
+        <input ref="b" type="text" onChange={this.update.bind(this)} /> {this.state.b}
+
       </div>
     )
 
@@ -82,9 +113,11 @@ App.defaultProps = {
   txt: "this is the default prop txt"
 }
 
+// Widget component is a stateless child component of App
 const Widget = (props) => 
   <input type="text" onChange={props.update.bind(this)}/>
 
+// Button component is a stateless child component of App
 const Button = (props) =>
   <button>{props.children}</button>
 
