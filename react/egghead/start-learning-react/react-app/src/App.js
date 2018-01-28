@@ -56,7 +56,9 @@ class App extends React.Component {
     // aka child component (widget) updates parent component (state)
     // multiple widget allows multiple updates to parent component
     return (
-      <div>
+      // className is used for CSS
+      <div className="application">
+        <Title text="123456"/>
         <h1>{txt}</h1>
         <h1>{this.state.txt} - {this.state.cat}</h1>
         <Widget update={this.update.bind(this)}/>
@@ -66,6 +68,7 @@ class App extends React.Component {
         <Button>I <Heart /> React</Button>
       </div>
     )
+
   }
 }
 
@@ -84,6 +87,22 @@ const Widget = (props) =>
 
 const Button = (props) =>
   <button>{props.children}</button>
+
+const Title = (props) => 
+  <h1>Title: {props.text}</h1>
+
+Title.propTypes = {
+  text(props, propName, component){
+    // similar to text: PropTypes.string.isRequired
+    if(!(propName in props)){
+      return new Error(`missing ${propName}`)
+    }
+    // additional validation that check length of string
+    if(props[propName].length < 6){
+      return new Error(`${propName} was too short`)
+    }
+  }
+}
 
 class Heart extends React.Component {
   render() {
